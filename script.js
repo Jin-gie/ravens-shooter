@@ -54,5 +54,19 @@ function animate(timestamp) {
     else ui.drawGameOver();
 }
 
-addEventListener("resize", () => { window.location.reload(); });
-animate(0);
+// addEventListener("resize", () => { window.location.reload(); });
+
+function startGame() {
+    ui.drawMenu();
+    const startBtn = document.getElementById("startBtn");
+    startBtn.onclick = (e) => {
+        let pseudoV = document.getElementById("pseudo").value;
+        if (pseudoV.length > 0) {
+            document.getElementById("startMenu").remove();
+            localStorage.setItem("pseudo", pseudoV);
+            animate(0)
+        }
+    }
+} 
+
+startGame();
