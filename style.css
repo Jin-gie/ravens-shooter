@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: linear-gradient(to bottom, red, green, blue);
     width: 100vw;
@@ -11,4 +16,63 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+#gameOverBoard {
+    height: 70%;
+    width: 70%;
+    background: rgba(190, 190, 190, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 5rem;
+    text-align: center;
+}
+
+#score {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#restartButton > button {
+    margin: 2rem 0rem;
+    font-size: 1.5rem;
+    padding: .3em;
+    border: 2px solid rgb(255, 255, 255);
+    cursor: pointer;
+    background-color: rgb(190, 190, 190);
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+#restartButton > button:hover {
+    background-color: rgb(42, 42, 42);
+    color: white;
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+#restartButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#scoreBoard {
+    background: rgba(190, 190, 190, 0.5);
+    height: 100%;
+    overflow: scroll;
+    width: 90%;
+    border-radius: 5px;
+    padding: 1rem;
 }

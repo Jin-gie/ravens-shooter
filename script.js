@@ -1,14 +1,17 @@
 /** @type {HTMLCanvasElement} */
 import { Raven } from "./src/Raven.js";
 import { Explosion } from "./src/Explosion.js";
+import { UI } from "./src/ui.js";
 
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let ui = new UI(canvas, ctx);
+
 ctx.font = '50px Impact'
-let score = 0;
+window.score = 0;
 window.maxLost = 3;
 window.lost = 0;
 
@@ -18,27 +21,6 @@ let lasttime = 0;
 
 let ravens = [];
 let explosions = [];
-let particles = [];
-
-function drawScore() {
-    ctx.fillStyle = 'black';
-    ctx.fillText('Score: ' + score, 50, 75);
-    ctx.fillStyle = 'white';
-    ctx.fillText('Score: ' + score, 55, 80);
-}
-
-function drawLife() {
-    ctx.fillStyle = 'black';
-    ctx.fillText('Life: ' + "+ ".repeat(window.maxLost - window.lost), 50, 130);
-    ctx.fillStyle = 'white';
-    ctx.fillText('Life: ' + "+ ".repeat(window.maxLost - window.lost), 55, 135);
-}
-
-function drawGameOver() {
-    ctx.textAlign = 'center';
-    ctx.fillStyle = 'black';
-    ctx.fillText('GAME OVER, your score is ' + score, canvas.width/2, canvas.height/2);
-}
 
 window.addEventListener('click', (e) => {
     ravens.forEach(raven => {
@@ -61,15 +43,16 @@ function animate(timestamp) {
         ravens.push(new Raven(canvas, ctx));
         timeToNextRaven = 0;
     }
-    drawScore();
-    drawLife();
+    ui.drawScore();
+    ui.drawLife();
     [...ravens, ...explosions].forEach(e => e.update(deltatime));
     [...ravens, ...explosions].forEach(e => e.draw());
     ravens =  ravens.filter(e => !e.markedForDeletion);
     explosions = explosions.filter(e => !e.markedForDeletion);
 
     if (!(window.lost >= window.maxLost)) requestAnimationFrame(animate);
-    else drawGameOver();
+    else ui.drawGameOver();
 }
 
+addEventListener("resize", () => { window.location.reload(); });
 animate(0);
